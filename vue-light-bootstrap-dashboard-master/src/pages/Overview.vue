@@ -1,68 +1,6 @@
 <template>
   <div class="content">
     <div class="container-fluid">
-      <!-- <div class="row">
-                                                                                                                                                                                                          <div class="col-xl-3 col-md-6">
-                                                                                                                                                                                                            <stats-card>
-                                                                                                                                                                                                              <div slot="header" class="icon-warning">
-                                                                                                                                                                                                                <i class="nc-icon nc-chart text-warning"></i>
-                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                              <div slot="content">
-                                                                                                                                                                                                                <p class="card-category">Capacity</p>
-                                                                                                                                                                                                                <h4 class="card-title">105GB</h4>
-                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                              <div slot="footer">
-                                                                                                                                                                                                                <i class="fa fa-refresh"></i>Updated now
-                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                            </stats-card>
-                                                                                                                                                                                                          </div>
-
-                                                                                                                                                                                                          <div class="col-xl-3 col-md-6">
-                                                                                                                                                                                                            <stats-card>
-                                                                                                                                                                                                              <div slot="header" class="icon-success">
-                                                                                                                                                                                                                <i class="nc-icon nc-light-3 text-success"></i>
-                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                              <div slot="content">
-                                                                                                                                                                                                                <p class="card-category">Revenue</p>
-                                                                                                                                                                                                                <h4 class="card-title">$1,345</h4>
-                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                              <div slot="footer">
-                                                                                                                                                                                                                <i class="fa fa-calendar-o"></i>Last day
-                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                            </stats-card>
-                                                                                                                                                                                                          </div>
-
-                                                                                                                                                                                                          <div class="col-xl-3 col-md-6">
-                                                                                                                                                                                                            <stats-card>
-                                                                                                                                                                                                              <div slot="header" class="icon-danger">
-                                                                                                                                                                                                                <i class="nc-icon nc-vector text-danger"></i>
-                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                              <div slot="content">
-                                                                                                                                                                                                                <p class="card-category">Errors</p>
-                                                                                                                                                                                                                <h4 class="card-title">23</h4>
-                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                              <div slot="footer">
-                                                                                                                                                                                                                <i class="fa fa-clock-o"></i>Last day
-                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                            </stats-card>
-                                                                                                                                                                                                          </div>
-
-                                                                                                                                                                                                          <div class="col-xl-3 col-md-6">
-                                                                                                                                                                                                            <stats-card>
-                                                                                                                                                                                                              <div slot="header" class="icon-info">
-                                                                                                                                                                                                                <i class="nc-icon nc-favourite-28 text-primary"></i>
-                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                              <div slot="content">
-                                                                                                                                                                                                                <p class="card-category">Followers</p>
-                                                                                                                                                                                                                <h4 class="card-title">+45</h4>
-                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                              <div slot="footer">
-                                                                                                                                                                                                                <i class="fa fa-refresh"></i>Updated now
-                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                            </stats-card>
-                                                                                                                                                                                                          </div>
-
-                                                                                                                                                                                                        </div> -->
       <div class="row">
         <div class="col-md-8">
           <chart-card :chart-data="lineChart.data" :chart-options="lineChart.options"
@@ -177,23 +115,7 @@ export default {
     StatsCard
   },
   data() {
-    axios({
-      method: 'get',
-      url: '/dummy',
-      baseURL: 'https://506f-171-66-13-237.ngrok.io',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      }
-      // withCredentials: true,
-    })
-      .then(response => {
-        console.log(response)
-        window.location.reload();
-      })
-      .catch(error => {
-        console.log(error);
-      });
+
     return {
       editTooltip: 'Edit Task',
       deleteTooltip: 'Remove',
@@ -278,6 +200,23 @@ export default {
         ]
       }
     }
+  },
+  mounted() {
+    axios({
+      method: 'get',
+      url: 'data',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      }
+    })
+      .then(response => {
+        console.log(response.data.response[0].title)
+        this.pieChart.data.labels[0] = "30%"
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
 }
 </script>
